@@ -1,0 +1,21 @@
+- name: Build docker image
+  docker_image:
+    name: app_image
+    force_source: true
+    source: build
+    build:
+      path: "{{ APP_PATH }}"
+      dockerfile: .docker/Dockerfile
+
+- name: Run docker container
+  docker_container:
+    name: app
+    image: app_image
+    recreate: true
+    restart: true
+    ports:
+      - "{{ APP_PORT }}:{{ APP_PORT }}" # 8000:8000 (server: docker)
+    env:
+      DJANGO_ENV: "{{ DJANGO_ENV }}"
+      DJANGO_SETTINGS_MODULE: "{{ DJANGO_SETTINGS_MODULE }}"
+      SECRET_KEY: "{{ SECRET_KEY }}"

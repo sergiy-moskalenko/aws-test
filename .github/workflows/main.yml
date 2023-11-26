@@ -1,0 +1,27 @@
+# https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-python
+# https://github.com/dawidd6/action-ansible-playbook
+
+name: Deploy python app to AWS EC2 Ubuntu server
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run playbook
+        uses: dawidd6/action-ansible-playbook@v2
+        with:
+          playbook: .ansible/main.yml # deploy.yml
+          key: ${{secrets.SSH_PRIVATE_KEY}}
+          inventory: |
+            [all]
+            ${{secrets.AWS}} address localhost
+          options: |
+            -e GITHUB_REPO=${{github.repository}}
+            -e DJANGO_ENV=production
+            -e APP_PORT=${{vars.APP_PORT}}
+            -e APP_PATH=${{vars.APP_PATH}}

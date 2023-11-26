@@ -1,0 +1,7 @@
+# https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_intro.html
+- name: Build app
+  hosts: all
+  remote_user: ubuntu # name user by ssh server
+  roles:
+    - git_pull
+    - docker_restart
