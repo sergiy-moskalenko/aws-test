@@ -19,9 +19,11 @@ jobs:
           key: ${{secrets.SSH_PRIVATE_KEY}}
           inventory: |
             [all]
-            ${{secrets.AWS}} address localhost
+            ${{secrets.AWS}} address=localhost
           options: |
             -e GITHUB_REPO=${{github.repository}}
             -e DJANGO_ENV=production
+            -e DJANGO_SETTINGS_MODULE=${{secrets.DJANGO_SETTINGS_MODULE}}
+            -e SECRET_KEY=${{secrets.SECRET_KEY}}
             -e APP_PORT=${{vars.APP_PORT}}
             -e APP_PATH=${{vars.APP_PATH}}

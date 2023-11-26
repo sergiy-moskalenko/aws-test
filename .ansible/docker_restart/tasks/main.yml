@@ -1,6 +1,6 @@
 - name: Build docker image
   docker_image:
-    name: app_image
+    name: app_aws_image
     force_source: true
     source: build
     build:
@@ -9,7 +9,7 @@
 
 - name: Run docker container
   docker_container:
-    name: app
+    name: app_aws_aws
     image: app_image
     recreate: true
     restart: true

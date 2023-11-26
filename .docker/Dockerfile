@@ -12,13 +12,14 @@ ENV PYTHONFAULTHANDLER=1 \
   PIP_DISABLE_PIP_VERSION_CHECK=on \
   PIP_DEFAULT_TIMEOUT=100
 
+COPY requirements/base.txt ./
 COPY requirements/production.txt ./
 
 RUN apt-get update && apt-get -y upgrade && \
     apt-get update \
-    && apt-get -y install libpq-dev gcc git \
+    && apt-get -y install libpq-dev libpcre3-dev gcc git \
     && pip install --upgrade pip \
-    && pip install --prefix=/req --force-reinstall -r requirements.txt
+    && pip install --prefix=/req --force-reinstall -r production.txt
 
 FROM python:3.10-slim-buster as build-image
 
@@ -38,7 +39,8 @@ RUN apt-get update && apt-get -y upgrade && apt-get install -y --no-install-reco
     && apt-get autoremove -y && apt-get clean -y && rm -rf /var/lib/apt/lists/*
 
 # copy project
-COPY project /usr/src/app
+COPY conf /usr/src/app/conf
+COPY project /usr/src/app/project
 #COPY .docker/script/docker-entrypoint.sh /
 
 # switch to non-root user
@@ -46,4 +48,4 @@ USER user
 
 EXPOSE 8000
 
-CMD ["uwsgi", "-ini", "conf/dev/uwsgi.ini"]
+CMD ["uwsgi", "--ini", "conf/dev/uwsgi.ini"]

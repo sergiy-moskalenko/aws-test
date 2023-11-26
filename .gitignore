@@ -163,3 +163,4 @@ cython_debug/
 /conf/dev/default-ssl.conf.tpl
 /conf/dev/nginx
 /server.pid
+/commands
