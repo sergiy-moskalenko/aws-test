@@ -17,6 +17,7 @@ jobs:
         with:
           playbook: .ansible/main.yml # deploy.yml
           key: ${{secrets.SSH_PRIVATE_KEY}}
+          passphrase: ${{secrets.SSH_PASSPHRASE}}
           inventory: |
             [all]
             ${{secrets.AWS}} address=localhost
