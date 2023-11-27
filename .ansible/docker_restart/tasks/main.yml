@@ -9,8 +9,8 @@
 
 - name: Run docker container
   docker_container:
-    name: app_aws_aws
-    image: app_image
+    name: app_aws
+    image: app_aws_image
     recreate: true
     restart: true
     ports:
