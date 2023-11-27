@@ -4,4 +4,3 @@
     dest: "{{ APP_PATH }}"
     single_branch: yes
     version: main
-    passphrase: "{{ SSH_PASSPHRASE }}"

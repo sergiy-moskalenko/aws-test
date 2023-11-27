@@ -22,7 +22,6 @@ jobs:
             ${{secrets.AWS}} address=localhost
           options: |
             -e GITHUB_REPO=${{github.repository}}
-            -e SSH_PASSPHRASE=${{secrets.SSH_PASSPHRASE}}
             -e DJANGO_ENV=production
             -e DJANGO_SETTINGS_MODULE=${{secrets.DJANGO_SETTINGS_MODULE}}
             -e SECRET_KEY=${{secrets.SECRET_KEY}}
